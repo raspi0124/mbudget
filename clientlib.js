@@ -17,9 +17,32 @@ function clientupdate(name, updateto) {
   //}
 }
 
+function commitmyusage(used, reason, currentbalance) {
+	//Sepcify sec in normal sec. I'm done with mili sec.
+		timestamp = Math.floor(Date.now()/1000); //秒単位でのタイムスタンプの保存
+		db.collection("usage").add({
+				 currentbalance: currentbalance,
+				 used: used,
+				 reason: reason,
+				 created_at: timestamp
+		 })
+		 .then(function(docRef) {
+				 console.log("Document written with ID: ", docRef.id);
+		 })
+		 .catch(function(error) {
+				 console.error("Error adding document: ", error);
+		 });
+
+}
+
+function getInputValue(id){
+	// Selecting the input element and get its value
+	var inputVal = document.getElementById(id).value;
+	console.log(inputVal)
+	return inputVal;
+}
 
 function sum(input){
-
  if (toString.call(input) !== "[object Array]")
   return false;
 
