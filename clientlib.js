@@ -19,9 +19,7 @@ function clientupdate(name, updateto) {
 
 
 function returnbalance(){
-	len = currentbalances.length
-	i = len - 1
-	return currentbalances[i];
+	return currentbalances[0];
 }
 
 function getInputValue(id){
