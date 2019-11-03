@@ -22,6 +22,16 @@ function clickedaddusage(){
 		prevbalance = returnbalance()
 		nowbalance = parseInt(prevbalance) - parseInt(usedamount)
 		commitmyusage(usedamount, reason, nowbalance)
+		Toastify({
+		  text: "Commited!",
+		  duration: 5000,
+		  newWindow: true,
+		  close: true,
+		  gravity: "top", // `top` or `bottom`
+		  position: 'right', // `left`, `center` or `right`
+		  backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+		  stopOnFocus: true // Prevents dismissing of toast on hover
+		}).showToast();
 	}
 }
 
@@ -60,24 +70,14 @@ function sum(input){
 }
 
 
-
-db.collection("usage").orderBy("created_at", "desc").limit(10)
+db.collection("usage").orderBy("created_at", "desc").limit(1)
   .onSnapshot(function(querySnapshot) {
-    var useds = [];
-    var created_ats = [];
-		currentbalances = []; //Removed var to make it global
-		var reasons = [];
+		currentbalances = [];
     querySnapshot.forEach(function(doc) {
       useds.push(doc.data().used);
 			created_ats.push(doc.data().created_at)
 			currentbalances.push(doc.data().currentbalance)
-			reasons.push(doc.data().reason)
     });
-    var toprint = currentbalances.join(", ");
-		console.log(reasons)
-		console.log(useds)
-		console.log(currentbalances)
-		console.log(created_ats)
 		var x = document.getElementById("balancestore")
 		x.innerHTML = currentbalances[0]
   });

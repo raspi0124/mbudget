@@ -26,44 +26,8 @@ function returnbalance(){
 	return a
 }
 
-function getInputValue(id){
-	// Selecting the input element and get its value
-	console.log(id)
-	var inputVal = document.getElementById(id).value;
-	console.log(inputVal)
-	return inputVal;
-}
 
 
-function clickedaddusage(){
-	console.log("clickedaddusage")
-	usedamount = getInputValue("usage")
-	reason = getInputValue("category")
-	if (usedamount != "" || usedamount != null) {
-		prevbalance = returnbalance()
-		nowbalance = parseInt(prevbalance) - parseInt(usedamount)
-		commitmyusage(usedamount, reason, nowbalance)
-	}
-}
-
-function commitmyusage(used, reason, currentbalance) {
-	//Sepcify sec in normal sec. I'm done with mili sec.
-		timestamp = Math.floor(Date.now()/1000); //秒単位でのタイムスタンプの保存
-		db.collection("usage").add({
-				 currentbalance: currentbalance,
-				 used: used,
-				 reason: reason,
-				 created_at: timestamp
-		 })
-		 .then(function(docRef) {
-				 console.log("Document written with ID: ", docRef.id);
-		 })
-		 .catch(function(error) {
-				 console.error("Error adding document: ", error);
-		 });
-		 //$.notify("追加しました!", "success");
-
-}
 function sum(numbers){
 	var sum = 0;
 	console.log("sum")
@@ -152,7 +116,7 @@ function todayusageupdater(useds, created_ats){
 	clientupdate("tu", sum(todayusage))
 }
 
-db.collection("usage").orderBy("created_at", "desc").limit(10000)
+db.collection("usage").orderBy("created_at", "desc").limit(500)
   .onSnapshot(function(querySnapshot) {
     var useds = [];
     var created_ats = [];
