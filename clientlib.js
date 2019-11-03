@@ -173,4 +173,5 @@ db.collection("usage").orderBy("created_at", "desc").limit(10)
 		console.log(created_ats)
 		usagelogadder(useds, reasons, created_ats)
 		balanceupdater(currentbalances)
+		clientupdate("remainingb", currentbalances[0])
   });
