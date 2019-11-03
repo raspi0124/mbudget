@@ -7,7 +7,7 @@ function clientupdate(name, updateto) {
     var bpd = document.getElementById("budgetperday")
     bpd.innerHTML = "￥" + updateto + "";
   }
-	if (name == "remainingb") { //Total Balance
+	if (name == "remainingb") { //Remaining Balance
 		var bpd = document.getElementById("remainingbalance")
 		bpd.innerHTML = "￥" + updateto + "";
 	}
@@ -16,6 +16,7 @@ function clientupdate(name, updateto) {
   //  bpd.innerHTML = "￥" + updateto + "";
   //}
 }
+
 
 
 function returnbalance(){
