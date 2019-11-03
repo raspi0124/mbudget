@@ -17,6 +17,33 @@ function clientupdate(name, updateto) {
   //}
 }
 
+
+function returnbalance(){
+	len = currentbalances.length
+	i = len - 1
+	return currentbalances[i];
+}
+
+function getInputValue(id){
+	// Selecting the input element and get its value
+	console.log(id)
+	var inputVal = document.getElementById(id).value;
+	console.log(inputVal)
+	return inputVal;
+}
+
+
+function clickedaddusage(){
+	console.log("clickedaddusage")
+	usedamount = getInputValue("usage")
+	reason = getInputValue("category")
+	if (usedamount != "" || usedamount != null) {
+		prevbalance = returnbalance()
+		nowbalance = prevbalance - usedamount
+		commitmyusage(usedamount, reason, nowbalance)
+	}
+}
+
 function commitmyusage(used, reason, currentbalance) {
 	//Sepcify sec in normal sec. I'm done with mili sec.
 		timestamp = Math.floor(Date.now()/1000); //秒単位でのタイムスタンプの保存
@@ -33,13 +60,6 @@ function commitmyusage(used, reason, currentbalance) {
 				 console.error("Error adding document: ", error);
 		 });
 
-}
-
-function getInputValue(id){
-	// Selecting the input element and get its value
-	var inputVal = document.getElementById(id).value;
-	console.log(inputVal)
-	return inputVal;
 }
 
 function sum(input){
@@ -65,7 +85,7 @@ function upclientusagelog(used, reason, created_at) {
 	console.log(created_at)
 	var created_at = parseInt(created_at)
 	console.log(created_at)
-	csrmili = Math.floor(created_at*1000); //標準ではミリ秒ではなく秒でtimestampになっているので
+	var csrmili = Math.floor(created_at*1000); //標準ではミリ秒ではなく秒でtimestampになっているので
 	var csr = new Date(csrmili)
 	console.log(csr)
 	var csrmonth = csr.getMonth() + 1
@@ -88,9 +108,9 @@ function upclientusagelog(used, reason, created_at) {
 
 function usagelogadder(useds, reasons, created_ats){
 	//リバースしないとめんどくさい。具体的に言うと古→新順にログが並んでしまうため一回リバース(反転)。
-	useds = useds.reverse();
-	reasons = reasons.reverse();
-	created_ats = created_ats.reverse();
+	var useds = useds.reverse();
+	var reasons = reasons.reverse();
+	var created_ats = created_ats.reverse();
 	for (var i = 0; i < useds.length; i++) { //Suppose that all the element are fullfilled
 	 console.log(useds[i])
 	 upclientusagelog(useds[i], reasons[i], created_ats[i])
@@ -98,15 +118,16 @@ function usagelogadder(useds, reasons, created_ats){
 	}
 }
 
+
 function balanceupdater(currentbalances){
-	len = currentbalances.length
-	i = len - 1
+	var len = currentbalances.length
+	var i = len - 1
 	clientupdate("remainingb", currentbalances[i])
 }
 
 function isittoday(timestamp){
 	var timestamp = parseInt(timestamp)
-	csrmili = Math.floor(timestamp*1000);
+	var csrmili = Math.floor(timestamp*1000);
 	var today = new Date().setHours(0, 0, 0, 0);
 	var thatDay = new Date(csrmili).setHours(0, 0, 0, 0);
 
@@ -120,9 +141,9 @@ function isittoday(timestamp){
 function todayusageupdater(useds, created_ats){
 	todayusage = [0]; //Initialize by having 0. This way, no undefined occur.
 	for (var i = 0; i < created_ats.length; i++) {
-	 cs = created_ats[i]
-	 used = useds[i]
-	 re = isittoday(cs)
+	 var cs = created_ats[i]
+	 var used = useds[i]
+	 var re = isittoday(cs)
 	 if (re=="true"){
 		 todayusage.push(used);
 	 }else {
@@ -135,7 +156,7 @@ db.collection("usage").orderBy("created_at", "desc").limit(10)
   .onSnapshot(function(querySnapshot) {
     var useds = [];
     var created_ats = [];
-		var currentbalances = [];
+		currentbalances = []; //Removed var to make it global
 		var reasons = [];
     querySnapshot.forEach(function(doc) {
       useds.push(doc.data().used);

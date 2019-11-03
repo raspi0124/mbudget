@@ -16,6 +16,7 @@
 				 https://firebase.google.com/docs/web/setup#available-libraries -->
 		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/notifyjs/notifyjs@master/dist/notify.js"></script>
 		<script>
 			// Your web app's Firebase configuration
 			var firebaseConfig = {
@@ -58,11 +59,12 @@
 							<div class="container">
 									<h3 class="text-dark mb-1" style="padding-top: 20px;">Add Usage</h3>
 							</div>
-							<div class="container-fluid" style="padding: 50px;"><small style="font-size: 16px;">使った金額:&nbsp;</small><small>￥</small><input type="number" required="" placeholder="0" min="0" id="usage" ><br><small style="font-size: 16px;">理由:</small>
+							<div class="container-fluid" style="padding: 50px;"><small style="font-size: 16px;">使った金額:&nbsp;</small><small>￥</small>
+								<input type="number" required="" placeholder="0" min="0" id="usage" >
+								<br><small style="font-size: 16px;">理由:</small>
 								<select class="custom-select"
 											required="" id="category"><option value="meal" selected="">食費</option><option value="oyatu">おやつ</option><option value="withsomeone">だれかと</option><option value="music">音楽</option><option value="other">その他</option></select></div>
-											<button type="button" onclick="getInputValue("usage");">Get Usage Value</button>
-											<button type="button" onclick="getInputValue("category");">Get Category Value</button>
+											<button class="btn btn-primary" type="link" style="margin-left: 5%;" onclick="clickedaddusage()">追加</button>
 					</div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
