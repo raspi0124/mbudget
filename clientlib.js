@@ -81,6 +81,7 @@ function sum(input){
 var latestrecieve = 0 //初回はここでdefineすることによってundefined variableエラーを回避
 function upclientusagelog(used, reason, created_at) {
 	var timestamp = Math.floor(Date.now()/1000);
+	var x = document.getElementById("usagelog")
 	console.log("updateclientusagelog")
 	console.log(created_at)
 	var created_at = parseInt(created_at)
