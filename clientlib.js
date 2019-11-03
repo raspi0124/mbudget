@@ -39,7 +39,7 @@ function clickedaddusage(){
 	reason = getInputValue("category")
 	if (usedamount != "" || usedamount != null) {
 		prevbalance = returnbalance()
-		nowbalance = prevbalance - usedamount
+		nowbalance = parseInt(prevbalance) - parseInt(usedamount)
 		commitmyusage(usedamount, reason, nowbalance)
 	}
 }
