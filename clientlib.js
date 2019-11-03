@@ -57,7 +57,7 @@ function upclientusagelog(used, reason, created_at, docid) {
 	var delfun = "deletedoc(" + docidforh + ")"
   var toadd = '<li class="list-group-item">\
 		<div class="row align-items-center no-gutters"> <div>\
-    <h6> <strong> ￥' + used + ' </strong></h6> <span class = "text-xs"> ' + reason + ', ' + csrdate + ',  <br><a style="visibility:hidden;">aa</a><div id="delbutton"><a onclick=' + delfun + ' class="btn-flat-simple">DELETE THIS USAGE</a></div>  </span></div>\
+    <h6> <strong> ￥' + used + ' </strong></h6> <span class = "text-xs"> ' + reason + ', ' + csrdate + '  <br><a style="visibility:hidden;">aa</a><div id="delbutton"><a onclick=' + delfun + ' class="btn-flat-simple">DELETE THIS USAGE</a></div>  </span></div>\
     </div> </li>'
 	var old = x.innerHTML
 	if (latestrecieve != timestamp){ //こうすることによって一緒の追加セッションでここに来たかそれとも別のセッション(リッスン)でここに来たかを判別。
@@ -119,12 +119,27 @@ function todayusageupdater(useds, created_ats){
 	clientupdate("tu", sum(todayusage))
 }
 
+function notify(text){
+	Toastify({
+		text: text,
+		duration: 5000,
+		newWindow: true,
+		close: true,
+		gravity: "top", // `top` or `bottom`
+		position: 'right', // `left`, `center` or `right`
+		backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+		stopOnFocus: true // Prevents dismissing of toast on hover
+	}).showToast();
+}
+
 function deletedoc(id){
 	db.collection("usage").doc(id).delete().then(function() {
-    console.log("Succefully deleted" + id);
+    console.log("Succefully deleted: " + id);
+		notify("正常に削除しました!")
 }).catch(function(error) {
     console.error("Error removing document: ", error);
 });
+
 }
 
 db.collection("usage").orderBy("created_at", "desc").limit(500)
