@@ -131,6 +131,14 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 		<script src="assets/js/theme.js"></script>
+		<script type="text/javascript">
+		  if('serviceWorker' in navigator) {
+		    navigator.serviceWorker
+		             .register('/sw.js')
+		             .then(function() { console.log("Service Worker Registered"); })
+		             .catch(function() { console.log("Service Worker Not Registered"); });
+		  }
+		</script>
 </body>
 
 </html>
