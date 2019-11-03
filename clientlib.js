@@ -17,9 +17,26 @@ function clientupdate(name, updateto) {
   //}
 }
 
+function getmonthend() {
+		var today = new Date();
+		var monthend = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+		var strend = monthend.getDate()
+		return strend;
+}
 
 function updatebudgetperday(currentbalance){
-	var remaining = getRemanningDays()
+	var today = new Date();
+	var monthend = getmonthend()
+	var todaydate = today.getDate()
+	var month = parseInt(today.getMonth()) + 1
+	var year = today.getFullYear()
+	starting = year + "-" + month + "-" + todaydate;
+	ending = year + "-" + month + "-" + monthend;
+	console.log("starting and ending")
+	console.log(starting)
+	console.log(ending)
+	var remaining = koyomi.biz(starting, ending);
+	console.log("Remaining weekday:", remaining)
 	var divided = Math.floor(parseInt(currentbalance)/parseInt(remaining));
 	clientupdate("bpd", divided)
 }
