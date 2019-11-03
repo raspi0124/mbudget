@@ -57,7 +57,7 @@ function upclientusagelog(used, reason, created_at, docid) {
 	var delfun = "deletedoc(" + docidforh + ")"
   var toadd = '<li class="list-group-item">\
 		<div class="row align-items-center no-gutters"> <div>\
-    <h6> <strong> ￥' + used + ' </strong></h6> <span class = "text-xs"> ' + reason + ', ' + csrdate + ',  <div id="delbutton"><a onclick=' + delfun + ' class="btn-flat-border">DELETE THIS USAGE</a></div>  </span></div>\
+    <h6> <strong> ￥' + used + ' </strong></h6> <span class = "text-xs"> ' + reason + ', ' + csrdate + ',  <br><a style="visibility:hidden;">aa</a><div id="delbutton"><a onclick=' + delfun + ' class="btn-flat-simple">DELETE THIS USAGE</a></div>  </span></div>\
     </div> </li>'
 	var old = x.innerHTML
 	if (latestrecieve != timestamp){ //こうすることによって一緒の追加セッションでここに来たかそれとも別のセッション(リッスン)でここに来たかを判別。
