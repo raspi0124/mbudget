@@ -50,7 +50,6 @@
 							<hr class="sidebar-divider my-0">
 							<ul class="nav navbar-nav text-light" id="accordionSidebar">
 									<li class="nav-item" role="presentation"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-									<li class="nav-item" role="presentation"><a class="nav-link active" href="log.html"><i class="fas fa-info-circle"></i><span>Detailed Usage</span></a></li>
 									<li class="nav-item" role="presentation"><a class="nav-link active" href="addusage.html"><i class="fas fa-plus-square"></i><span>Add Usage</span></a></li>
 							</ul>
 							<div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -65,7 +64,11 @@
 								<input type="number" required="" value="0" min="0" id="usage" >
 								<br><small style="font-size: 16px;">理由:</small>
 								<select class="custom-select"
-											required="" id="category"><option value="食費" selected="">食費</option><option value="おやつ">おやつ</option><option value="だれかと">だれかと</option><option value="音楽">音楽</option><option value="ガジェット系">ガジェット系</option><option value="その他">その他</option></select></div>
+											required="" id="category">
+											<option value="食費" selected="">食費</option><option value="おやつ">おやつ</option><option value="だれかと">だれかと</option><option value="音楽">音楽</option><option value="ガジェット系">ガジェット系</option><option value="交通費">交通費</option>
+											<option value="駐輪代">駐輪代</option><option value="その他">その他</option>
+								</select>
+							</div>
 											<button class="btn btn-primary" type="link" style="margin-left: 5%;" onclick="clickedaddusage()">追加</button><br>
 											<button class="btn btn-danger" type="link" style="margin-left: 5%; margin-top: 1%;" onclick="initbalance('0')">残高を初期化(0にする)</button>
 											<button class="btn btn-danger" type="link" style="margin-left: 2%; margin-top: 1%;" onclick="initbalance('10000')">残高を10000円にする</button>
