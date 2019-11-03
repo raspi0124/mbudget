@@ -59,6 +59,7 @@ function commitmyusage(used, reason, currentbalance) {
 		 .catch(function(error) {
 				 console.error("Error adding document: ", error);
 		 });
+		 $.notify("追加しました!", "success");
 
 }
 
