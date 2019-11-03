@@ -18,6 +18,12 @@ function clientupdate(name, updateto) {
 }
 
 
+function updatebudgetperday(currentbalance){
+	var remaining = getRemanningDays()
+	var divided = Math.floor(parseInt(currentbalance)/parseInt(remaining));
+	clientupdate("bpd", divided)
+}
+
 
 function returnbalance(){
 	console.log("returnbalance")
@@ -145,6 +151,16 @@ function deletedoc(id){
 
 }
 
+function getRemanningDays() {
+				var date = new Date();
+				var time = new Date(date.getTime());
+				time.setMonth(date.getMonth() + 1);
+				time.setDate(0);
+				var days =time.getDate() > date.getDate() ? time.getDate() - date.getDate() : 0;
+				console.log("Remaining days:" + days)
+				return days
+}
+
 db.collection("usage").orderBy("created_at", "desc").limit(500)
   .onSnapshot(function(querySnapshot) {
     var useds = [];
@@ -171,6 +187,7 @@ db.collection("usage").orderBy("created_at", "desc").limit(500)
 		balanceupdater(currentbalances)
 		clientupdate("remainingb", currentbalances[0])
 		todayusageupdater(useds, created_ats)
+		updatebudgetperday(currentbalances[0])
 		var x = document.getElementById("balancestore")
 		x.innerHTML = currentbalances[0]
   });
