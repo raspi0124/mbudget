@@ -41,7 +41,7 @@ function sum(numbers){
 }
 
 var latestrecieve = 0 //初回はここでdefineすることによってundefined variableエラーを回避
-function upclientusagelog(used, reason, created_at) {
+function upclientusagelog(used, reason, created_at, docid) {
 	var timestamp = Math.floor(Date.now()/1000);
 	var x = document.getElementById("usagelog")
 	console.log("updateclientusagelog")
@@ -53,14 +53,16 @@ function upclientusagelog(used, reason, created_at) {
 	console.log(csr)
 	var csrmonth = csr.getMonth() + 1
 	var csrdate = csr.getFullYear() + "/" + csrmonth + "/"+ csr.getDate()
+	var docidforh = "'" + docid + "'"
+	var delfun = "deletedoc(" + docidforh + ")"
   var toadd = '<li class="list-group-item">\
 		<div class="row align-items-center no-gutters"> <div>\
-    <h6> <strong> ￥' + used + ' </strong></h6> <span class = "text-xs"> ' + reason + ', ' + csrdate + '  </span></div>\
+    <h6> <strong> ￥' + used + ' </strong></h6> <span class = "text-xs"> ' + reason + ', ' + csrdate + ',  <div id="delbutton"><a onclick=' + delfun + ' class="btn-flat-border">DELETE THIS USAGE</a></div>  </span></div>\
     </div> </li>'
 	var old = x.innerHTML
 	if (latestrecieve != timestamp){ //こうすることによって一緒の追加セッションでここに来たかそれとも別のセッション(リッスン)でここに来たかを判別。
 		//普通にelseのやつのみでやると重複が出てくるので。処理速度が遅い端末だとバグる可能性?
-		//この↓のやつだけでいいと思うかもしれないけどこれだと一つの要素しか入ってくれない。(既存の要素を新規要素受診時に消してしまう)
+		//この↓のやつだけでいいと思うかもしれないけどこれだと一つの要素しか入ってくれない。(既存の要素を新規要素受信時に消してしまう)
 		x.innerHTML = toadd
 	} else {
 		x.innerHTML = toadd + old
@@ -69,14 +71,15 @@ function upclientusagelog(used, reason, created_at) {
 	//x.innerHTML = toadd //本来なら↑のコメントアウトされてるやつのほうがいいんだけどsnapshotからaddする方法がうーん
 }
 
-function usagelogadder(useds, reasons, created_ats){
+function usagelogadder(useds, reasons, created_ats, docids){
 	//リバースしないとめんどくさい。具体的に言うと古→新順にログが並んでしまうため一回リバース(反転)。
-	var useds = useds.reverse();
-	var reasons = reasons.reverse();
-	var created_ats = created_ats.reverse();
+	var ruseds = useds.reverse();
+	var rreasons = reasons.reverse();
+	var rcreated_ats = created_ats.reverse();
+	var rdocids = docids.reverse();
 	for (var i = 0; i < useds.length; i++) { //Suppose that all the element are fullfilled
-	 console.log(useds[i])
-	 upclientusagelog(useds[i], reasons[i], created_ats[i])
+	 console.log(ruseds[i])
+	 upclientusagelog(ruseds[i], rreasons[i], rcreated_ats[i], rdocids[i])
 	}
 }
 
@@ -116,24 +119,35 @@ function todayusageupdater(useds, created_ats){
 	clientupdate("tu", sum(todayusage))
 }
 
+function deletedoc(id){
+	db.collection("usage").doc(id).delete().then(function() {
+    console.log("Succefully deleted" + id);
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+});
+}
+
 db.collection("usage").orderBy("created_at", "desc").limit(500)
   .onSnapshot(function(querySnapshot) {
     var useds = [];
     var created_ats = [];
 		currentbalances = []; //Removed var to make it global
 		var reasons = [];
+		var docids = [];
     querySnapshot.forEach(function(doc) {
       useds.push(doc.data().used);
 			created_ats.push(doc.data().created_at)
 			currentbalances.push(doc.data().currentbalance)
 			reasons.push(doc.data().reason)
+			docids.push(doc.id)
     });
     var toprint = currentbalances.join(", ");
 		console.log(reasons)
 		console.log(useds)
 		console.log(currentbalances)
 		console.log(created_ats)
-		usagelogadder(useds, reasons, created_ats)
+		console.log(docids)
+		usagelogadder(useds, reasons, created_ats, docids)
 		balanceupdater(currentbalances)
 		clientupdate("remainingb", currentbalances[0])
 		todayusageupdater(useds, created_ats)

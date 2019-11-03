@@ -23,7 +23,7 @@ function clickedaddusage(){
 		nowbalance = parseInt(prevbalance) - parseInt(usedamount)
 		commitmyusage(usedamount, reason, nowbalance)
 		Toastify({
-		  text: "Commited!",
+		  text: "追加しました!",
 		  duration: 5000,
 		  newWindow: true,
 		  close: true,
