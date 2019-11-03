@@ -19,6 +19,9 @@ function clientupdate(name, updateto) {
 
 
 function returnbalance(){
+	console.log("returnbalance")
+	console.log(currentbalance)
+	console.log(currentbalances[0])
 	return currentbalances[0];
 }
 
