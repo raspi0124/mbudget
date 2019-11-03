@@ -42,7 +42,8 @@ function commitmyusage(used, reason, currentbalance) {
 				 currentbalance: currentbalance,
 				 used: used,
 				 reason: reason,
-				 created_at: timestamp
+				 created_at: timestamp,
+				 isinit: false
 		 })
 		 .then(function(docRef) {
 				 console.log("Document written with ID: ", docRef.id);

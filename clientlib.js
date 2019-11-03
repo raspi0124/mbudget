@@ -71,15 +71,18 @@ function upclientusagelog(used, reason, created_at, docid) {
 	//x.innerHTML = toadd //本来なら↑のコメントアウトされてるやつのほうがいいんだけどsnapshotからaddする方法がうーん
 }
 
-function usagelogadder(useds, reasons, created_ats, docids){
+function usagelogadder(useds, reasons, created_ats, docids, isinits){
 	//リバースしないとめんどくさい。具体的に言うと古→新順にログが並んでしまうため一回リバース(反転)。
 	var ruseds = useds.reverse();
 	var rreasons = reasons.reverse();
 	var rcreated_ats = created_ats.reverse();
 	var rdocids = docids.reverse();
+	var risinits = isinits.reverse();
 	for (var i = 0; i < useds.length; i++) { //Suppose that all the element are fullfilled
 	 console.log(ruseds[i])
-	 upclientusagelog(ruseds[i], rreasons[i], rcreated_ats[i], rdocids[i])
+	 if (risinits[i] != "true"){
+	 	upclientusagelog(ruseds[i], rreasons[i], rcreated_ats[i], rdocids[i])
+		}
 	}
 }
 
@@ -149,11 +152,13 @@ db.collection("usage").orderBy("created_at", "desc").limit(500)
 		currentbalances = []; //Removed var to make it global
 		var reasons = [];
 		var docids = [];
+		var isinits = [];
     querySnapshot.forEach(function(doc) {
       useds.push(doc.data().used);
 			created_ats.push(doc.data().created_at)
 			currentbalances.push(doc.data().currentbalance)
 			reasons.push(doc.data().reason)
+			isinits.push(doc.data().isinit)
 			docids.push(doc.id)
     });
     var toprint = currentbalances.join(", ");
@@ -162,7 +167,7 @@ db.collection("usage").orderBy("created_at", "desc").limit(500)
 		console.log(currentbalances)
 		console.log(created_ats)
 		console.log(docids)
-		usagelogadder(useds, reasons, created_ats, docids)
+		usagelogadder(useds, reasons, created_ats, docids, isinits)
 		balanceupdater(currentbalances)
 		clientupdate("remainingb", currentbalances[0])
 		todayusageupdater(useds, created_ats)
