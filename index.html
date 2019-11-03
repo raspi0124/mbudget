@@ -2,37 +2,37 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>MBudget</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+		<title>MBudget</title>
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
 
 		<!-- TODO: Add SDKs for Firebase products that you want to use
-		     https://firebase.google.com/docs/web/setup#available-libraries -->
+				 https://firebase.google.com/docs/web/setup#available-libraries -->
 		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
 		<script>
-		  // Your web app's Firebase configuration
-		  var firebaseConfig = {
-		    apiKey: "AIzaSyBZGADME11xguiNh1_aHPazLd4YIY2oLw8",
-		    authDomain: "mybudget-47f4a.firebaseapp.com",
-		    databaseURL: "https://mybudget-47f4a.firebaseio.com",
-		    projectId: "mybudget-47f4a",
-		    storageBucket: "mybudget-47f4a.appspot.com",
-		    messagingSenderId: "344649913021",
-		    appId: "1:344649913021:web:188a90c2eb5f00b0e55dd4",
-		    measurementId: "G-ZCZ45DZGW4"
-		  };
-		  // Initialize Firebase
-		  firebase.initializeApp(firebaseConfig);
-		  firebase.analytics();
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyBZGADME11xguiNh1_aHPazLd4YIY2oLw8",
+				authDomain: "mybudget-47f4a.firebaseapp.com",
+				databaseURL: "https://mybudget-47f4a.firebaseio.com",
+				projectId: "mybudget-47f4a",
+				storageBucket: "mybudget-47f4a.appspot.com",
+				messagingSenderId: "344649913021",
+				appId: "1:344649913021:web:188a90c2eb5f00b0e55dd4",
+				measurementId: "G-ZCZ45DZGW4"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
 			const db = firebase.firestore()
 		</script>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 		<link rel="stylesheet" href="assets/style.css">
 		<script src="clientlib.js"></script>
@@ -40,97 +40,97 @@
 <!--ここに現在の残高保管-->
 <a id="balancestore" style="display:none;"></a>
 <body id="page-top">
-    <div id="wrapper">
-        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div class="container-fluid d-flex flex-column p-0">
+		<div id="wrapper">
+				<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+						<div class="container-fluid d-flex flex-column p-0">
 							<a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="index.html">
 									<div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-money-check-alt"></i></div>
 									<div class="sidebar-brand-text mx-3"><span>MBudget</span></div>
 							</a>
-                <hr class="sidebar-divider my-0">
-                <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+								<hr class="sidebar-divider my-0">
+								<ul class="nav navbar-nav text-light" id="accordionSidebar">
+										<li class="nav-item" role="presentation"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
 										<li class="nav-item" role="presentation"><a class="nav-link active" href="log.html"><i class="fas fa-info-circle"></i><span>Detailed Usage</span></a></li>
 										<li class="nav-item" role="presentation"><a class="nav-link active" href="addusage.html"><i class="fas fa-plus-square"></i><span>Add Usage</span></a></li>
-                </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
-            </div>
-        </nav>
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <div class="container-fluid">
-                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-dark mb-0" style="padding-top:5%;">Dashboard</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-0 py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>TODAY'S USAGE</span></div>
-                                            <div class="text-dark font-weight-bold h5 mb-0" id="todayusage"><span>¥Undefined</span></div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-money-bill-wave fa-1x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-0 py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>BUDGET PER DAY</span></div>
-                                            <div class="text-dark font-weight-bold h5 mb-0" id="budgetperday"><span>¥500</span></div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-dollar-sign fa-1x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-0 py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>REMANING BALANCE</span></div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col">
-                                                    <div class="text-dark font-weight-bold h5 mb-0" id="remainingbalance"><span>￥Undefined</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-wallet fa-1x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-10 mb-4">
-                            <div class="card shadow mb-4" style="position: relative;">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">Usage Log</h6>
-                                </div>
-                                <ul class="list-group list-group-flush" id="usagelog">
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © MBudget 2019</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+								</ul>
+								<div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+						</div>
+				</nav>
+				<div class="d-flex flex-column" id="content-wrapper">
+						<div id="content">
+								<div class="container-fluid">
+										<div class="d-sm-flex justify-content-between align-items-center mb-4">
+												<h3 class="text-dark mb-0" style="padding-top:5%;">Dashboard</h3>
+										</div>
+										<div class="row">
+												<div class="col-md-6 col-xl-3 mb-4">
+														<div class="card shadow border-0 py-2">
+																<div class="card-body">
+																		<div class="row align-items-center no-gutters">
+																				<div class="col mr-2">
+																						<div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>TODAY'S USAGE</span></div>
+																						<div class="text-dark font-weight-bold h5 mb-0" id="todayusage"><span>¥Undefined</span></div>
+																				</div>
+																				<div class="col-auto"><i class="fas fa-money-bill-wave fa-1x text-gray-300"></i></div>
+																		</div>
+																</div>
+														</div>
+												</div>
+												<div class="col-md-6 col-xl-3 mb-4">
+														<div class="card shadow border-0 py-2">
+																<div class="card-body">
+																		<div class="row align-items-center no-gutters">
+																				<div class="col mr-2">
+																						<div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>BUDGET PER DAY</span></div>
+																						<div class="text-dark font-weight-bold h5 mb-0" id="budgetperday"><span>¥500</span></div>
+																				</div>
+																				<div class="col-auto"><i class="fas fa-dollar-sign fa-1x text-gray-300"></i></div>
+																		</div>
+																</div>
+														</div>
+												</div>
+												<div class="col-md-6 col-xl-3 mb-4">
+														<div class="card shadow border-0 py-2">
+																<div class="card-body">
+																		<div class="row align-items-center no-gutters">
+																				<div class="col mr-2">
+																						<div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>REMANING BALANCE</span></div>
+																						<div class="row no-gutters align-items-center">
+																								<div class="col">
+																										<div class="text-dark font-weight-bold h5 mb-0" id="remainingbalance"><span>￥Undefined</span></div>
+																								</div>
+																						</div>
+																				</div>
+																				<div class="col-auto"><i class="fas fa-wallet fa-1x text-gray-300"></i></div>
+																		</div>
+																</div>
+														</div>
+												</div>
+										</div>
+										<div class="row">
+												<div class="col-lg-10 mb-4">
+														<div class="card shadow mb-4" style="position: relative;">
+																<div class="card-header py-3">
+																		<h6 class="text-primary font-weight-bold m-0">Usage Log</h6>
+																</div>
+																<ul class="list-group list-group-flush" id="usagelog">
+																</ul>
+														</div>
+												</div>
+										</div>
+								</div>
+						</div>
+						<footer class="bg-white sticky-footer">
+								<div class="container my-auto">
+										<div class="text-center my-auto copyright"><span>Copyright © MBudget 2019</span></div>
+								</div>
+						</footer>
+				</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="assets/js/theme.js"></script>
+		<script src="assets/js/theme.js"></script>
 </body>
 
 </html>
