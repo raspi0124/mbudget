@@ -1,3 +1,38 @@
+function notify(text){
+	Toastify({
+		text: text,
+		duration: 5000,
+		newWindow: true,
+		close: true,
+		gravity: "top", // `top` or `bottom`
+		position: 'right', // `left`, `center` or `right`
+		backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+		stopOnFocus: true // Prevents dismissing of toast on hover
+	}).showToast();
+}
+
+function deletedoc(id){
+	db.collection("usage").doc(id).delete().then(function() {
+    console.log("Succefully deleted: " + id);
+		notify("正常に削除しました!")
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+});
+
+}
+
+function getrecentdocid(){
+	var y = document.getElementById("docidstore")
+	return y.innerHTML
+}
+
+//直前に実行されたドキュメントの削除
+function undo(){
+	toremove = getrecentdocid()
+	deletedoc(toremove)
+	notify("直前の追加アクションを取り消しました")
+}
+
 function returnbalance(){
 	console.log("returnbalance")
 	var x = document.getElementById("balancestore")
@@ -22,16 +57,16 @@ function clickedaddusage(){
 		prevbalance = returnbalance()
 		nowbalance = parseInt(prevbalance) - parseInt(usedamount)
 		commitmyusage(usedamount, reason, nowbalance)
-		Toastify({
-		  text: "追加しました!",
-		  duration: 5000,
-		  newWindow: true,
-		  close: true,
-		  gravity: "top", // `top` or `bottom`
-		  position: 'right', // `left`, `center` or `right`
-		  backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-		  stopOnFocus: true // Prevents dismissing of toast on hover
-		}).showToast();
+		notify("追加しました!")
+	}
+}
+
+function clickedinitbalance(){
+	console.log("clickednewbalance")
+	newbalance = getInputValue("newbalance")
+	if (newbalance != "" || newbalance != null) {
+		newbalance = parseInt(newbalance)
+		initbalance(newbalance)
 	}
 }
 
@@ -43,7 +78,7 @@ function commitmyusage(used, reason, currentbalance) {
 				 used: used,
 				 reason: reason,
 				 created_at: timestamp,
-				 isinit: false
+				 isinit: "false"
 		 })
 		 .then(function(docRef) {
 				 console.log("Document written with ID: ", docRef.id);
@@ -51,8 +86,26 @@ function commitmyusage(used, reason, currentbalance) {
 		 .catch(function(error) {
 				 console.error("Error adding document: ", error);
 		 });
-		 //$.notify("追加しました!", "success");
 
+}
+
+function initbalance(newbalance) {
+	//Sepcify sec in normal sec. I'm done with mili sec.
+		timestamp = Math.floor(Date.now()/1000); //秒単位でのタイムスタンプの保存
+		db.collection("usage").add({
+				 currentbalance: newbalance,
+				 used: "0",
+				 reason: "init",
+				 created_at: timestamp,
+				 isinit: "true"
+		 })
+		 .then(function(docRef) {
+				 console.log("Document written with ID: ", docRef.id);
+				 notify("残高を " + newbalance + " に設定しました!")
+		 })
+		 .catch(function(error) {
+				 console.error("Error adding document: ", error);
+		 });
 }
 
 function sum(input){
@@ -74,11 +127,13 @@ function sum(input){
 db.collection("usage").orderBy("created_at", "desc").limit(1)
   .onSnapshot(function(querySnapshot) {
 		currentbalances = [];
+		var docids = [];
     querySnapshot.forEach(function(doc) {
-      useds.push(doc.data().used);
-			created_ats.push(doc.data().created_at)
 			currentbalances.push(doc.data().currentbalance)
+			docids.push(doc.id)
     });
 		var x = document.getElementById("balancestore")
 		x.innerHTML = currentbalances[0]
+		var y = document.getElementById("docidstore")
+		y.innerHTML = docids[0]
   });
