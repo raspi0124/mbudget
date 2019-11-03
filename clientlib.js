@@ -21,8 +21,9 @@ function clientupdate(name, updateto) {
 
 function returnbalance(){
 	console.log("returnbalance")
-	console.log(currentbalances[0])
-	return currentbalances[0];
+	var x = document.getElementById("balancestore")
+	var a = x.innerHTML
+	return a
 }
 
 function getInputValue(id){
@@ -60,23 +61,19 @@ function commitmyusage(used, reason, currentbalance) {
 		 .catch(function(error) {
 				 console.error("Error adding document: ", error);
 		 });
-		 $.notify("追加しました!", "success");
+		 //$.notify("追加しました!", "success");
 
 }
-
-function sum(input){
- if (toString.call(input) !== "[object Array]")
-  return false;
-
-  var total =  0;
-  for(var i=0;i<input.length;i++)
-    {
-      if(isNaN(input[i])){
-    		continue;
-      }
-      total += Number(input[i]);
-    }
-	return total;
+function sum(numbers){
+	var sum = 0;
+	console.log("sum")
+	console.log(numbers)
+	for (var i = 0; i < numbers.length; i++) {
+		var inted = parseInt(numbers[i])
+  	sum += inted
+	}
+	console.log(sum)
+	return sum
 }
 
 var latestrecieve = 0 //初回はここでdefineすることによってundefined variableエラーを回避
@@ -116,7 +113,6 @@ function usagelogadder(useds, reasons, created_ats){
 	for (var i = 0; i < useds.length; i++) { //Suppose that all the element are fullfilled
 	 console.log(useds[i])
 	 upclientusagelog(useds[i], reasons[i], created_ats[i])
-	 todayusageupdater(useds, created_ats)
 	}
 }
 
@@ -144,17 +140,19 @@ function todayusageupdater(useds, created_ats){
 	todayusage = [0]; //Initialize by having 0. This way, no undefined occur.
 	for (var i = 0; i < created_ats.length; i++) {
 	 var cs = created_ats[i]
-	 var used = useds[i]
+	 var useda = useds[i]
 	 var re = isittoday(cs)
 	 if (re=="true"){
-		 todayusage.push(used);
+		 todayusage.push(useda);
 	 }else {
 	 }
 	}
+	console.log("todayusageupdater")
+	console.log(sum(todayusage))
 	clientupdate("tu", sum(todayusage))
 }
 
-db.collection("usage").orderBy("created_at", "desc").limit(10)
+db.collection("usage").orderBy("created_at", "desc").limit(10000)
   .onSnapshot(function(querySnapshot) {
     var useds = [];
     var created_ats = [];
@@ -174,4 +172,7 @@ db.collection("usage").orderBy("created_at", "desc").limit(10)
 		usagelogadder(useds, reasons, created_ats)
 		balanceupdater(currentbalances)
 		clientupdate("remainingb", currentbalances[0])
+		todayusageupdater(useds, created_ats)
+		var x = document.getElementById("balancestore")
+		x.innerHTML = currentbalances[0]
   });
