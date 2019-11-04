@@ -1,8 +1,8 @@
 {
   "name": "MBudget",
   "short_name": "MBudget",
-  "theme_color": "#2196f3",
-  "background_color": "#2196f3",
+  "theme_color": "#fff",
+  "background_color": "#fff",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/index.html",
