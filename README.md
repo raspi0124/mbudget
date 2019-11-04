@@ -1,2 +1,2 @@
 # mbudget
-My budget
+Insight your budget
