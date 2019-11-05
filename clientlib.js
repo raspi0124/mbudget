@@ -11,6 +11,10 @@ function clientupdate(name, updateto) {
 		var bpd = document.getElementById("remainingbalance")
 		bpd.innerHTML = "￥" + updateto + "";
 	}
+	if (name == "bpdt"){
+		var bpdt = document.getElementById("budgetpertodommorow")
+		bpdt.innerHTML = "￥" + updateto + "";
+	}
   //if (name == "totalb") { //Total Balance
   //  var bpd = document.getElementById("totalbalance")
   //  bpd.innerHTML = "￥" + updateto + "";
@@ -39,6 +43,11 @@ function updatebudgetperday(currentbalance){
 	console.log("Remaining weekday:", remaining)
 	var divided = Math.floor(parseInt(currentbalance)/parseInt(remaining));
 	clientupdate("bpd", divided)
+	//Also updates budgetpertodommorow thingy
+	remainingt = parseInt(getRemanningWeekDays(starting, ending))-parseInt("1");
+	console.log("Remaining weekday from tommorow:", remainingt)
+	var dividedt = Math.floor(parseInt(currentbalance)/parseInt(remainingt));
+	clientupdate("bpdt", dividedt)
 }
 
 
@@ -80,7 +89,7 @@ function upclientusagelog(used, reason, created_at, docid) {
 	var delfun = "deletedoc(" + docidforh + ")"
   var toadd = '<li class="list-group-item">\
 		<div class="row align-items-center no-gutters"> <div>\
-    <h6> <strong> ￥' + used + ' </strong></h6> <span class = "text-xs"> ' + reason + ', ' + csrdate + '  <br><a style="visibility:hidden;">aa</a><div id="delbutton"><a onclick=' + delfun + ' class="btn-flat-simple">DELETE THIS USAGE</a></div>  </span></div>\
+    <h6> <strong> ￥' + used + ' </strong></h6> <span class = "text-xs"> ' + reason + ', ' + csrdate + '  <br><a style="visibility:hidden;">aa</a><div id="delbutton"><a onclick=' + delfun + ' class="btn-flat-simple">DELETE THIS USAGE</a></div></span></div>\
     </div> </li>'
 	var old = x.innerHTML
 	if (latestrecieve != timestamp){ //こうすることによって一緒の追加セッションでここに来たかそれとも別のセッション(リッスン)でここに来たかを判別。
