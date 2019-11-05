@@ -192,7 +192,7 @@ function getRemanningWeekDays(starting, ending){
 	return res
 }
 
-db.collection("usage").orderBy("created_at", "desc").limit(500)
+db.collection("usage").orderBy("created_at", "desc").limit(100)
   .onSnapshot(function(querySnapshot) {
     var useds = [];
     var created_ats = [];
