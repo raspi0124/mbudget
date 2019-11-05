@@ -35,7 +35,7 @@ function updatebudgetperday(currentbalance){
 	console.log("starting and ending")
 	console.log(starting)
 	console.log(ending)
-	var remaining = koyomi.biz(starting, ending);
+	var remaining = getRemanningWeekDays(starting, ending);
 	console.log("Remaining weekday:", remaining)
 	var divided = Math.floor(parseInt(currentbalance)/parseInt(remaining));
 	clientupdate("bpd", divided)
@@ -176,6 +176,11 @@ function getRemanningDays() {
 				var days =time.getDate() > date.getDate() ? time.getDate() - date.getDate() : 0;
 				console.log("Remaining days:" + days)
 				return days
+}
+
+function getRemanningWeekDays(starting, ending){
+	var res = koyomi.biz(starting, ending)
+	return res
 }
 
 db.collection("usage").orderBy("created_at", "desc").limit(500)
