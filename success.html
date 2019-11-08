@@ -1,3 +1,10 @@
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+		 https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
 <title>MBudget - Login success</title>
 <h1>Login success</h1>
 <!--Have some login user info..etc, and link to top page below-->
@@ -17,11 +24,11 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
+	if (user) {
         // User is signed in.
         console.log('auth user', user);
-    } else {
+	} else {
         // No user is signed in.
-    }
+	}
 });
 </script>
