@@ -25,16 +25,19 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 firebase.auth().onAuthStateChanged(function(user) {
 	if (user) {
-        // User is signed in.
-        console.log('auth user', user);
+				// User is signed in.
+				console.log('auth user', user);
 				var x = document.getElementById("loginusername")
 				x.innerHTML = user.displayName
 				var y = document.getElementById("loginuseremail")
 				y.innerHTML = user.email
+				var z = document.getElementById("photourl")
+				z.innerHTML = user.photoURL
 	} else {
         console.log("NO LOGIN FOUND!")
 	}
 });
 </script>
-<div id="loginusername"></div><br>
-<div id="loginuseremail"></div>
+YOUR DISPLAY NAME:<div id="loginusername"></div><br>
+YOUR EMAIL ADDRESS:<div id="loginuseremail"></div><br>
+YOUR PHOTO'S URL:<div id="photourl"></div>
