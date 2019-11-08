@@ -33,6 +33,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 				y.innerHTML = user.email
 				var z = document.getElementById("photourl")
 				z.innerHTML = user.photoURL
+				var pic = document.getElementById("pic")
+				pic.innerHTML = '<img src="' + user.photoURL + '">'
 	} else {
         console.log("NO LOGIN FOUND!")
 	}
@@ -41,3 +43,4 @@ firebase.auth().onAuthStateChanged(function(user) {
 YOUR DISPLAY NAME:<div id="loginusername"></div><br>
 YOUR EMAIL ADDRESS:<div id="loginuseremail"></div><br>
 YOUR PHOTO'S URL:<div id="photourl"></div>
+<div id="pic"></div>
