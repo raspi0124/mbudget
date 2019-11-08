@@ -27,8 +27,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 	if (user) {
         // User is signed in.
         console.log('auth user', user);
+				var x = document.getElementById("loginusername")
+				x.innerHTML = user.displayName
+				var y = document.getElementById("loginuseremail")
+				y.innerHTML = user.email
 	} else {
-        // No user is signed in.
+        console.log("NO LOGIN FOUND!")
 	}
 });
 </script>
+<div id="loginusername"></div><br>
+<div id="loginuseremail"></div>
