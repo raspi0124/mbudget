@@ -1,3 +1,27 @@
 <title>MBudget - Login success</title>
 <h1>Login success</h1>
 <!--Have some login user info..etc, and link to top page below-->
+<script>
+// Your web app's Firebase configuration
+var firebaseConfig = {
+	apiKey: "AIzaSyBZGADME11xguiNh1_aHPazLd4YIY2oLw8",
+	authDomain: "mybudget-47f4a.firebaseapp.com",
+	databaseURL: "https://mybudget-47f4a.firebaseio.com",
+	projectId: "mybudget-47f4a",
+	storageBucket: "mybudget-47f4a.appspot.com",
+	messagingSenderId: "344649913021",
+	appId: "1:344649913021:web:188a90c2eb5f00b0e55dd4",
+	measurementId: "G-ZCZ45DZGW4"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        console.log('auth user', user);
+    } else {
+        // No user is signed in.
+    }
+});
+</script>
