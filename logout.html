@@ -19,7 +19,10 @@
 			 https://firebase.google.com/docs/web/setup#available-libraries -->
 	<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 	<script src="justnotify.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 	<script>
 		// Your web app's Firebase configuration
 		var firebaseConfig = {
@@ -44,7 +47,7 @@
       // ログインチェック
       //-----------------------------------
       if(! user) {
-        notify('ログインしていません');
+        console.log('ログインしていません');
         logout.classList.add("hide");
         return(false);
       }
@@ -53,7 +56,7 @@
       // ログイン者への処理
       //-----------------------------------
       // ログインメッセージ
-      notify("ログインしています!");
+      console.log("ログインしています!");
 
       // ログアウトボタンを表示
       logout.classList.remove("hide");
@@ -61,10 +64,10 @@
       // ログアウトボタンを押下
       logout.addEventListener("click", ()=>{
         firebase.auth().signOut().then(()=>{
-          notify("ログアウトしました!");
+          console.log("ログアウトしました!");
         })
         .catch( (error)=>{
-          notify("ログアウト時にエラーが発生しました (${error})");
+          console.log("ログアウト時にエラーが発生しました (${error})");
         });
       });
     });
