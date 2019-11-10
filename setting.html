@@ -9,12 +9,12 @@
 		<title>MBudget Setting</title>
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
-
 		<!-- TODO: Add SDKs for Firebase products that you want to use
 				 https://firebase.google.com/docs/web/setup#available-libraries -->
 		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
-		<script src="https://cdn.jsdelivr.net/gh/yukik/koyomi/public/koyomi.min.js"></script>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
 		<script>
 			// Your web app's Firebase configuration
 			var firebaseConfig = {
@@ -38,6 +38,7 @@
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 		<link rel="stylesheet" href="assets/style.css">
 		<script src="clientlib.js"></script>
+		<script src="setting.htmk"></script>
 </head>
 <!--ここに現在の残高保管-->
 <a id="balancestore" style="display:none;"></a>
@@ -66,8 +67,17 @@
 										</div>
 								</div>
 								<div id="content-container" style="padding-left: 2%;">
-									<h3>Nothing here!.. Yet</h3>
+									<!--<h3>Nothing here!.. Yet</h3>
 									<a>Soon (I hope) you should be able to see the planty of settings that opens you a brand new ways to the new feelings(適当)</a>
+								-->
+									<h4>ユーザー名を変更</h4>
+										<script>
+										getsetcurrentusername()
+										</script>
+										<input id="usernamechangeinput" type="text" maxlength="32">
+										<br>ユーザー名は32文字までに制限されています。また、', ", {,}等の一部の文字は制限されています。(制限をすり抜けたり解除する方法はありますが非推奨です。万が一何かが制限をすり抜けたり解除した
+										ことによって起きた場合すべての責任はユーザーが負うことになります)<br>
+										<button type="button" class="btn btn-primary" style="margin-left:90%;" onclick="changeusername()">変更</button>
 								</div>
 						</div>
 
@@ -88,6 +98,23 @@
 		             .then(function() { console.log("Service Worker Registered"); })
 		             .catch(function() { console.log("Service Worker Not Registered"); });
 		  }
+		</script>
+		<!--ATTENTION! 以下のスクリプトを消すとユーザー名への制限が解除されます。以下のスクリプトを削除されて強引にユーザー名を設定された場合何が起こっても責任はとれませんのでご了承ください。
+		Deleting following script unrestricts all limitation given to user name changing. WE WILL NOT TAKE ANY RESPONSIBILITY OF LOSE OF DATA, OR ANYTHING ELSE CAUSED BY DELETING FOLLOWING SCRIPT
+		IF YOU AGREE TO TAKE ALL THE RESPONSIBILITY OF ANYTHING THAT WAS CAUSED BY THIS TO BOTH OUR SERVICE, PROVIDER, AND YOURSELF.
+	-->
+		<script>
+		document.getElementById("usernamechangeinput").onkeypress = function(e) {
+			var chr = String.fromCharCode(e.which);
+			if ("></\"\'\\{}[]".indexOf(chr) >= 0)
+					return false;
+		};
+		document.getElementById("usernamechangeinput").addEventListener("paste", function(e){
+			var chr = String.fromCharCode(e.which);
+			console.log(chr)
+			if ("></\"\'\\{}[]".indexOf(chr) >= 0)
+					return false;
+    });
 		</script>
 </body>
 
