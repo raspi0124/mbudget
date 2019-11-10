@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logout - Mbudget</title>
+  <style type="text/css">
+    .hide{ display:none; }
+  </style>
+</head>
+<body>
+  <h1>...Please wait</h1>
+  <div id="info"></div>
+  <form>
+    <button type="button" id="logout" class="hide">ログアウト</button>
+  </form>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+			 https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyBZGADME11xguiNh1_aHPazLd4YIY2oLw8",
+			authDomain: "mybudget-47f4a.firebaseapp.com",
+			databaseURL: "https://mybudget-47f4a.firebaseio.com",
+			projectId: "mybudget-47f4a",
+			storageBucket: "mybudget-47f4a.appspot.com",
+			messagingSenderId: "344649913021",
+			appId: "1:344649913021:web:188a90c2eb5f00b0e55dd4",
+			measurementId: "G-ZCZ45DZGW4"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+	</script>
+  <script>
+    firebase.auth().onAuthStateChanged( (user) => {
+      let logout = document.getElementById("logout");
+
+      //-----------------------------------
+      // ログインチェック
+      //-----------------------------------
+      if(! user) {
+        notify('ログインしていません');
+        logout.classList.add("hide");
+        return(false);
+      }
+
+      //-----------------------------------
+      // ログイン者への処理
+      //-----------------------------------
+      // ログインメッセージ
+      notify("ログインしています!");
+
+      // ログアウトボタンを表示
+      logout.classList.remove("hide");
+
+      // ログアウトボタンを押下
+      logout.addEventListener("click", ()=>{
+        firebase.auth().signOut().then(()=>{
+          notify("ログアウトしました!");
+        })
+        .catch( (error)=>{
+          notify("ログアウト時にエラーが発生しました (${error})");
+        });
+      });
+    });
+
+  </script>
+</body>
+</html>
