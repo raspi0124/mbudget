@@ -53,13 +53,16 @@
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 		<link rel="stylesheet" href="assets/style.css">
 		<script src="clientlib.js"></script>
+		<script>
+		function handleOpenURL(url) {
+		  notify("received url: " + url);
+		}
+		</script>
 		<script type="text/javascript" src="LaunchMyApp.js"></script>
 		<script>
-			function handleOpenURL(url) {
-				setTimeout(function() {
-					alert("received url: " + url);
-				}, 0);
-			}
+		function handleOpenURL(url) {
+		  notify("received url: " + url);
+		}
 		</script>
 </head>
 <!--ここに現在の残高保管-->
