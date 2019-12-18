@@ -58,7 +58,30 @@ function returnbalance(){
 	return a
 }
 
+function getnumofweekendsdays(){
+	var d = new Date();
+	var getTot = daysInMonth(d.getMonth(),d.getFullYear());
+	console.log(daysInMonth(d.getMonth(),d.getFullYear()))
+	var sat = new Array();
+	var sun = new Array();
 
+	for(var i=1;i<=getTot;i++){
+	    var newDate = new Date(d.getFullYear(),d.getMonth(),i)
+	    console.log(i+"-"+newDate.getDay());
+	    if(newDate.getDay()==0){
+	        sat.push(i)
+	    }
+	    if(newDate.getDay()==6){
+	        sun.push(i)
+	    }
+
+	}
+	sum = sat.length + sun.length;
+	function daysInMonth(month,year) {
+	    return new Date(year, month, 0).getDate();
+	}
+	return sum
+}
 
 function sum(numbers){
 	var sum = 0;
