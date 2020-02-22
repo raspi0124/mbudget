@@ -158,3 +158,21 @@ db.collection("usage").orderBy("created_at", "desc").limit(1)
 		var y = document.getElementById("docidstore")
 		y.innerHTML = docids[0]
   });
+db.collection("usage").whereEqualTo("todayf", "true").orderBy("created_at", "desc").limit(1)
+  .onSnapshot(function(querySnapshot) {
+		timestamps = [];
+		var docids = [];
+		currentbalancest = [];
+    querySnapshot.forEach(function(doc) {
+			timestamps.push(doc.data().timestamp)
+			docids.push(doc.id)
+			currentbalancest.push(doc.data().currentbalance)
+    });
+		resto = isittoday(timestamps[0])
+		if (resto == "true") {
+			var y = document.getElementById("docidstoretod")
+			y.innerHTML = docids[0]
+			var y = document.getElementById("todbstore")
+			y.innerHTML = currentbalancest[0]
+		}
+  });
