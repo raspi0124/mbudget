@@ -98,7 +98,7 @@ function commitmyusage(used, reason, currentbalance, todayf) {
 				 used: used,
 				 reason: reason,
 				 created_at: timestamp,
-				 todayf: todayf
+				 todayf: todayf,
 				 isinit: "false"
 		 })
 		 .then(function(docRef) {
