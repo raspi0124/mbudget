@@ -48,6 +48,18 @@ function getInputValue(id){
 	return inputVal;
 }
 
+function isittoday(timestamp){
+	var timestamp = parseInt(timestamp)
+	var csrmili = Math.floor(timestamp*1000);
+	var today = new Date().setHours(0, 0, 0, 0);
+	var thatDay = new Date(csrmili).setHours(0, 0, 0, 0);
+
+	if(today === thatDay){
+    return "true";
+	}else {
+		return "false";
+	}
+}
 
 function clickedaddusage(){
 	console.log("clickedaddusage")
@@ -56,8 +68,16 @@ function clickedaddusage(){
 	if (usedamount != "" || usedamount != null) {
 		prevbalance = returnbalance()
 		nowbalance = parseInt(prevbalance) - parseInt(usedamount)
-		commitmyusage(usedamount, reason, nowbalance)
+		if (isittoday == "true") {
+			commitmyusage(usedamount, reason, nowbalance, "true")
+		}
+		else if (isittoday == "false") {
+			commitmyusage(usedamount, reason, nowbalance, "false")
+		}
 		notify("追加しました!")
+	}
+	else {
+		notify("Invalid input")
 	}
 }
 
@@ -70,7 +90,7 @@ function clickedinitbalance(){
 	}
 }
 
-function commitmyusage(used, reason, currentbalance) {
+function commitmyusage(used, reason, currentbalance, todayf) {
 	//Sepcify sec in normal sec. I'm done with mili sec.
 		timestamp = Math.floor(Date.now()/1000); //秒単位でのタイムスタンプの保存
 		db.collection("usage").add({
@@ -78,6 +98,7 @@ function commitmyusage(used, reason, currentbalance) {
 				 used: used,
 				 reason: reason,
 				 created_at: timestamp,
+				 todayf: todayf
 				 isinit: "false"
 		 })
 		 .then(function(docRef) {
